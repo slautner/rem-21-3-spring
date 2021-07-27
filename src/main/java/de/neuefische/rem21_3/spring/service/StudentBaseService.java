@@ -1,28 +1,31 @@
 package de.neuefische.rem21_3.spring.service;
 
 import de.neuefische.rem21_3.spring.model.Student;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public abstract class StudentBaseService implements StudentService {
 
     @Override
-    public Student getStudent(String matNumber) {
+    public Optional<Student> getStudent(String matNumber) {
         List<Student> students = getStudents();
         for (Student student : students) {
             if (student.getMatNumber().equals(matNumber)) {
-                return student;
+                return Optional.of(student);
             }
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        return Optional.empty();
     }
 
     @Override
-    public Student updateStudent(String matNumber, Student student) {
-        Student studentToUpdate = getStudent(matNumber);
+    public Optional<Student> updateStudent(String matNumber, Student student) {
+        Optional<Student> studentToUpdateOpt = getStudent(matNumber);
+        if (studentToUpdateOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Student studentToUpdate = studentToUpdateOpt.get();
 
         if (student.getName() != null) {
             studentToUpdate.setName(student.getName());
