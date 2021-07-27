@@ -7,17 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service("readWrite")
 public class ReadWriteStudentService extends StudentBaseService implements StudentService {
 
-    //    @Resource
     private StudentRepository studentRepository;
+    private MatNumberService matNumberService;
 
     @Autowired
-    public ReadWriteStudentService(StudentRepository studentRepository) {
+    public ReadWriteStudentService(StudentRepository studentRepository, MatNumberService matNumberService) {
         this.studentRepository = studentRepository;
+        this.matNumberService = matNumberService;
     }
 
     @Override
@@ -27,7 +27,9 @@ public class ReadWriteStudentService extends StudentBaseService implements Stude
 
     @Override
     public Student createStudent(Student student) {
-        student.setMatNumber(UUID.randomUUID().toString());
+        String generatedMatNumber = matNumberService.generateId();
+        student.setMatNumber(generatedMatNumber);
+
         studentRepository.add(student);
 
         return student;
