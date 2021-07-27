@@ -5,7 +5,6 @@ import de.neuefische.rem21_3.spring.model.Student;
 import java.util.List;
 import java.util.Optional;
 
-
 public abstract class StudentBaseService implements StudentService {
 
     @Override

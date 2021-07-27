@@ -45,7 +45,6 @@ public class StudentController {
         return getStudentResponse(studentOpt);
     }
 
-
     @GetMapping("{matNumber}")
     public ResponseEntity<Student> getStudentByPath(@PathVariable String matNumber) {
         Optional<Student> studentOpt = studentService.getStudent(matNumber);
@@ -73,9 +72,6 @@ public class StudentController {
     }
 
     private ResponseEntity<Student> getStudentResponse(Optional<Student> studentOpt) {
-        if (studentOpt.isPresent()) {
-            return ok(studentOpt.get());
-        }
-        return notFound().build();
+        return studentOpt.map(ResponseEntity::ok).orElseGet(() -> notFound().build());
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service("default")
 public class DefaultStudentService extends StudentBaseService implements StudentService {
 
@@ -25,6 +24,6 @@ public class DefaultStudentService extends StudentBaseService implements Student
 
     @Override
     public Optional<Student> deleteStudent(String matNumber) {
-        throw new UnsupportedOperationException("Unable to delete new Students");
+        throw new UnsupportedOperationException("Unable to delete Students");
     }
 }
