@@ -13,4 +13,8 @@ public interface StudentService {
     Optional<Student> getStudent(String matNumber);
 
     Optional<Student> updateStudent(String matNumber, Student student);
+
+    Student createStudent(Student student);
+
+    Optional<Student> deleteStudent(String matNumber);
 }
